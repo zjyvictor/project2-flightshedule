@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import {Flight} from './flight'
 import {useSelector, useDispatch} from 'react-redux';
-import {loadFlights} from './actions';
+import {loadOne} from './actions';
 
 function App() {
 
@@ -18,11 +18,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect (() =>{
-    dispatch(loadFlights([
-      {id: 3, airlines: "Air China", flightnumber: "CA988", origin: "LAX", destination: "PEK"},
-      {id: 2, airlines: "China Southern", flightnumber: "CZ682", origin: "ICN", destination: "SHE"},
-      {id: 1, airlines: "China Eastern", flightnumber: "MU588", origin: "JFK", destination: "PVG"},
-    ]));
+    dispatch(loadOne("NRT", "PVG"));
   },[dispatch]);
 
   return (
