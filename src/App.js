@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {Flight} from './flight'
+import {useSelector} from 'react-redux';
+
 
 function App() {
+
+ 
+
+  // const removeFlight = id =>{
+  //   setFlights(flights => flights.filter(flight => flight.id !== id));
+  // }
+
+
+  const flights = useSelector(state => state.flights);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="flights-root">
+      <div id="table-name">
+        <div className="airlines-column">Airlines</div>
+        <div className="flightnumber-column">Flight No.</div>
+        <div className="departure-column">Departure</div>
+        <div className="arrival-column">Arrival</div>
+        <div className="delete-operation"></div>
+      </div>
+      <div id="flights">
+        {flights.map(flight => <Flight key = {flight.id} flight={flight} />)}
+      </div>
+      
     </div>
   );
 }
