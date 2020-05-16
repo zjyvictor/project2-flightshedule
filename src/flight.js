@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {enterEditMode, leaveEditMode, startSavingFlight} from './actions';
+import {enterEditMode, leaveEditMode, startSavingFlight, startDeletingFlight} from './actions';
 export function Flight(props) {
     const flight = props.flight;
     const dispatch = useDispatch();
@@ -26,6 +26,10 @@ export function Flight(props) {
             departure,
             arrival,
         }));
+    }
+
+    const onDelete = () =>{
+        dispatch(startDeletingFlight(flight));
     }
 
     if(flight.isEditing){
@@ -59,7 +63,7 @@ export function Flight(props) {
                 <div className="origin">{flight.departure}</div>
                 <div className="destination">{flight.arrival}</div>
                 <div className="edit" onClick = {onEdit}><button>Edit</button></div>
-                <div className="delete-button" onClick = {() => props.remove(flight.id)}>&#x2716;</div>
+                <div className="delete-button" onClick = {onDelete}>&#x2716;</div>
             </div>
         );
     }

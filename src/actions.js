@@ -4,6 +4,7 @@ export const Action = Object.freeze({
     EnterEditMode: 'EnterEditMode',
     LeaveEditMode: 'LeaveEditMode',
     FinishSavingFlight: 'FinishSavingFlight',
+    FinishDeletingFlight: 'FinishDeletingFlight',
 });
 
 export function loadFlights(flights){
@@ -23,6 +24,13 @@ export function finishAddingFlight(flight){
 export function finishSavingFlight(flight){
     return {
         type: Action.FinishSavingFlight,
+        payload: flight,
+    }
+}
+
+export function finishDeletingFlight(flight){
+    return {
+        type: Action.FinishDeletingFlight,
         payload: flight,
     }
 }
@@ -118,6 +126,24 @@ export function startSavingFlight(flight){
             .then(data => {
                 if(data.ok){
                     dispatch(finishSavingFlight(flight));
+                }
+            })
+            .catch(e => console.error(e));
+    };
+}
+
+export function startDeletingFlight(flight){
+    const options = {
+        method: 'DELETE',
+    };
+
+    return dispatch =>{
+        fetch(`${host}/flights/${flight.id}`, options)
+            .then(checkForErrors)
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok){
+                    dispatch(finishDeletingFlight(flight));
                 }
             })
             .catch(e => console.error(e));

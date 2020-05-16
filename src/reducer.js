@@ -49,7 +49,12 @@ function reducer(state = initialState, action){
                         return flight;
                     }
                 }),
-            };     
+            };
+        case Action.FinishDeletingFlight:
+            return{
+                ...state,
+                flights: state.flights.filter(flight => flight.id !== action.payload.id),
+            };          
     default:
         return state;
     }
