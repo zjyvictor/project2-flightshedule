@@ -1,11 +1,36 @@
 export const Action = Object.freeze({
     LoadFlights: 'LoadFlights',
+    FinishAddingFlight: 'FinishAddingFlight',
 });
 
 export function loadFlights(flights){
     return {
         type: Action.LoadFlights,
         payload: flights,
+    }
+}
+
+export function finishAddingFlight(flight){
+    return {
+        type: Action.FinishAddingFlight,
+        payload: flight,
+    }
+}
+
+
+export class Route {
+    constructor(origin, destination) {
+        this.origin = origin;
+        this.destination = destination;
+    }
+}
+
+export class OneFlight {
+    constructor(airlines, flightNumber, origin, destination){
+        this.airlines = airlines;
+        this.flightNumber = flightNumber;
+        this.origin = origin;
+        this.destination = destination;
     }
 }
 
@@ -18,7 +43,7 @@ function checkForErrors(response) {
 
 const host = "https://flightschedule.duckdns.org:8444";
 
-export function loadOne(origin, destination){
+export function loadRoute(origin, destination){
     return dispatch =>{
         fetch(`${host}/flightschedule/${origin}/${destination}`)
             .then(checkForErrors)
@@ -26,6 +51,29 @@ export function loadOne(origin, destination){
             .then(data => {
                 if(data.ok){
                     dispatch(loadFlights(data.flights));
+                }
+            })
+            .catch(e => console.error(e));
+    };
+}
+
+export function startAddingFlight(airlines, flightnumber, departure, arrival){
+    const flight = {airlines, flightnumber, departure, arrival};
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(flight),
+    }
+    return dispatch =>{
+        fetch(`${host}/flights`, options)
+            .then(checkForErrors)
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok){
+                    flight.id = data.id;
+                    dispatch(finishAddingFlight(flight));
                 }
             })
             .catch(e => console.error(e));

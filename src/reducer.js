@@ -11,7 +11,12 @@ function reducer(state = initialState, action){
             return{
                 ...state,
                 flights: action.payload,
-            }
+            };
+        case Action.FinishAddingFlight:
+            return{
+                ...state,
+                flights: [action.payload, ...state.flights],
+            };
     default:
         return state;
     }
