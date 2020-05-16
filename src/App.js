@@ -7,14 +7,14 @@ import {loadRoute, OneFlight, Route, startAddingFlight} from './actions';
 
 
 const route = new Route("NRT", "PVG");
-const origin = route.origin;
-const destination = route.destination;
+const departure = route.departure;
+const arrival = route.arrival;
 
 const oneFlight = new OneFlight("China Eastern", "MU588", "JFK", "PVG");
 const newAirlines = oneFlight.airlines;
-const newFlightNumber = oneFlight.flightNumber;
-const newOrigin = oneFlight.origin;
-const newDestination = oneFlight.destination;
+const newFlightNumber = oneFlight.flightnumber;
+const newDeparture = oneFlight.departure;
+const newArrival = oneFlight.arrival;
 
 
 function App() {
@@ -28,12 +28,12 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect (() =>{
-    dispatch(loadRoute(origin, destination));
+    dispatch(loadRoute(departure, arrival));
   },[dispatch]);
 
 
   const onAdd = () =>{
-    dispatch(startAddingFlight(newAirlines, newFlightNumber, newOrigin, newDestination));
+    dispatch(startAddingFlight(newAirlines, newFlightNumber, newDeparture, newArrival));
   }
 
   return (

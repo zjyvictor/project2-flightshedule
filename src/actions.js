@@ -3,6 +3,7 @@ export const Action = Object.freeze({
     FinishAddingFlight: 'FinishAddingFlight',
     EnterEditMode: 'EnterEditMode',
     LeaveEditMode: 'LeaveEditMode',
+    FinishSavingFlight: 'FinishSavingFlight',
 });
 
 export function loadFlights(flights){
@@ -15,6 +16,13 @@ export function loadFlights(flights){
 export function finishAddingFlight(flight){
     return {
         type: Action.FinishAddingFlight,
+        payload: flight,
+    }
+}
+
+export function finishSavingFlight(flight){
+    return {
+        type: Action.FinishSavingFlight,
         payload: flight,
     }
 }
@@ -34,18 +42,18 @@ export function leaveEditMode(flight){
 }
 
 export class Route {
-    constructor(origin, destination) {
-        this.origin = origin;
-        this.destination = destination;
+    constructor(departure, arrival) {
+        this.departure = departure;
+        this.arrival = arrival;
     }
 }
 
 export class OneFlight {
-    constructor(airlines, flightNumber, origin, destination){
+    constructor(airlines, flightnumber, departure, arrival){
         this.airlines = airlines;
-        this.flightNumber = flightNumber;
-        this.origin = origin;
-        this.destination = destination;
+        this.flightnumber = flightnumber;
+        this.departure = departure;
+        this.arrival = arrival;
     }
 }
 
@@ -89,6 +97,27 @@ export function startAddingFlight(airlines, flightnumber, departure, arrival){
                 if(data.ok){
                     flight.id = data.id;
                     dispatch(finishAddingFlight(flight));
+                }
+            })
+            .catch(e => console.error(e));
+    };
+}
+
+export function startSavingFlight(flight){
+    const options = {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(flight),
+    }
+    return dispatch =>{
+        fetch(`${host}/flights/${flight.id}`, options)
+            .then(checkForErrors)
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok){
+                    dispatch(finishSavingFlight(flight));
                 }
             })
             .catch(e => console.error(e));

@@ -28,7 +28,7 @@ function reducer(state = initialState, action){
                     }
                 }),
             };
-         case Action.LeaveEditMode:
+        case Action.LeaveEditMode:
             return{
                 ...state,
                 flights: state.flights.map(flight => {
@@ -39,6 +39,17 @@ function reducer(state = initialState, action){
                     }
                 }),
             };
+        case Action.FinishSavingFlight:
+            return{
+                ...state,
+                flights: state.flights.map(flight => {
+                    if(flight.id === action.payload.id){
+                        return action.payload;
+                    }else{
+                        return flight;
+                    }
+                }),
+            };     
     default:
         return state;
     }

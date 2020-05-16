@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {enterEditMode, leaveEditMode} from './actions';
+import {enterEditMode, leaveEditMode, startSavingFlight} from './actions';
 export function Flight(props) {
     const flight = props.flight;
     const dispatch = useDispatch();
+
+    const [airlines, setAirlines] = useState(flight.airlines);
+    const [flightnumber, setFlightnumber] = useState(flight.flightnumber);
+    const [departure, setDeparture] = useState(flight.departure);
+    const [arrival, setArrival] = useState(flight.arrival);
 
     const onEdit = () =>{
         dispatch(enterEditMode(flight));
@@ -13,15 +18,33 @@ export function Flight(props) {
         dispatch(leaveEditMode(flight));
     }
 
+    const onSave = () =>{
+        dispatch(startSavingFlight({
+            id: flight.id,
+            airlines,
+            flightnumber,
+            departure,
+            arrival,
+        }));
+    }
+
     if(flight.isEditing){
         return (
             <div className="flight">
-                <div className="airlines"><input type="text"/></div>
-                <div className="flightnumber"><input type="text"/></div>
-                <div className="origin"><input type="text"/></div>
-                <div className="destination"><input type="text"/></div>
+                <div className="airlines"><input type="text" value={airlines} onChange={e =>
+                    setAirlines(e.target.value)
+                }/></div>
+                <div className="flightnumber"><input type="text" value={flightnumber} onChange={e =>
+                    setFlightnumber(e.target.value)
+                }/></div>
+                <div className="origin"><input type="text" value={departure} onChange={e =>
+                    setDeparture(e.target.value)
+                }/></div>
+                <div className="destination"><input type="text" value={arrival} onChange={e =>
+                    setArrival(e.target.value)
+                }/></div>
                     <div className="save">
-                        <button>save</button>
+                        <button onClick={onSave}>save</button>
                     </div> 
                     <div className="cancel">
                         <button onClick={onCancel}>cancel</button>
