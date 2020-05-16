@@ -1,6 +1,8 @@
 export const Action = Object.freeze({
     LoadFlights: 'LoadFlights',
     FinishAddingFlight: 'FinishAddingFlight',
+    EnterEditMode: 'EnterEditMode',
+    LeaveEditMode: 'LeaveEditMode',
 });
 
 export function loadFlights(flights){
@@ -17,6 +19,19 @@ export function finishAddingFlight(flight){
     }
 }
 
+export function enterEditMode(flight){
+    return {
+        type: Action.EnterEditMode,
+        payload: flight,
+    }
+}
+
+export function leaveEditMode(flight){
+    return {
+        type: Action.LeaveEditMode,
+        payload: flight,
+    }
+}
 
 export class Route {
     constructor(origin, destination) {

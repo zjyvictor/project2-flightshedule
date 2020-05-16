@@ -17,6 +17,28 @@ function reducer(state = initialState, action){
                 ...state,
                 flights: [action.payload, ...state.flights],
             };
+        case Action.EnterEditMode:
+            return{
+                ...state,
+                flights: state.flights.map(flight => {
+                    if(flight.id === action.payload.id){
+                        return {...flight, isEditing: true};
+                    }else{
+                        return flight;
+                    }
+                }),
+            };
+         case Action.LeaveEditMode:
+            return{
+                ...state,
+                flights: state.flights.map(flight => {
+                    if(flight.id === action.payload.id){
+                        return {...flight, isEditing: undefined};
+                    }else{
+                        return flight;
+                    }
+                }),
+            };
     default:
         return state;
     }

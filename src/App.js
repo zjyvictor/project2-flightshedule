@@ -43,6 +43,7 @@ function App() {
         <div className="flightnumber-column">Flight No.</div>
         <div className="departure-column">Departure</div>
         <div className="arrival-column">Arrival</div>
+        <div className="edit"></div>
         <div className="delete-operation"></div>
       </div>
 

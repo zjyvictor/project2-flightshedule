@@ -81,3 +81,46 @@
   cursor: pointer;
   transform: scale(1.5);
 }
+
+.edit{
+  width: 50px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.edit > button{
+  cursor: pointer;
+  font-size: 14pt;
+}
+
+.save > button{
+  cursor: pointer;
+  font-size: 14pt;
+}
+
+.cancel > button{
+  cursor: pointer;
+  font-size: 14pt;
+}
+
+.airlines > input{
+  width: 100px;
+  box-sizing: border-box;
+}
+
+.flightnumber > input{
+  width: 80px;
+  box-sizing: border-box;
+}
+
+.origin > input{
+  width: 100px;
+  box-sizing: border-box;
+  margin-left: 25px;
+}
+
+.destination > input{
+  margin-left: 35px;
+  width: 50px;
+  box-sizing: border-box;
+}
