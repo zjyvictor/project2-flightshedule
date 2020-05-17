@@ -1,18 +1,10 @@
 import React, { useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {Flight} from './flight'
 import {useSelector, useDispatch} from 'react-redux';
-import {loadRoute, OneFlight, Route, startAddingFlight, 
-  loadFlightNumber, loadDeparture, loadArrival, Arrival, loadAllLiveFlights} from './actions';
+import {OneFlight, startAddingFlight, loadAllLiveFlights} from './actions';
 
 
-const route = new Route("NRT", "PVG");
-const departure = route.departure;
-const arrival = route.arrival;
-
-const searchArrival = new Arrival("PVG");
-const searchCurrentArrival = searchArrival.arrival;
 
 const oneFlight = new OneFlight("", "", "", "");
 const newAirlines = oneFlight.airlines;
@@ -23,17 +15,10 @@ const newArrival = oneFlight.arrival;
 
 function App() {
 
-  // const removeFlight = id =>{
-  //   setFlights(flights => flights.filter(flight => flight.id !== id));
-  // }
-
-
   const flights = useSelector(state => state.flights);
   const dispatch = useDispatch();
 
   useEffect (() =>{
-    // dispatch(loadRoute(departure, arrival));
-    // dispatch(loadArrival(searchCurrentArrival));
     dispatch(loadAllLiveFlights());
   },[dispatch]);
 
