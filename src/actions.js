@@ -107,6 +107,21 @@ export function loadAllLiveFlights(){
     };
 }
 
+export function loadAirlines(airlines){
+    return dispatch =>{
+        fetch(`${host}/airlines/${airlines}`)
+            .then(checkForErrors)
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok){
+                    dispatch(loadFlights(data.flights));
+                }
+            })
+            .catch(e => console.error(e));
+    };
+}
+
+
 export function loadRoute(origin, destination){
     return dispatch =>{
         fetch(`${host}/flightschedule/${origin}/${destination}`)

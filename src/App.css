@@ -74,13 +74,36 @@
   width: 70px;
   box-sizing: border-box;
   text-align: center;
-  display: block;
+}
+
+.flight >.destination:hover{
+  cursor: pointer;
+  color: white;
+  background-color: teal;
+  margin-top: 2px;
+  margin-bottom: 3px;
+  border-radius: 10px;
+}
+
+.flight >.origin:hover{
+  cursor: pointer;
+  color: white;
+  background-color: coral;
+  margin-top: 2px;
+  margin-bottom: 3px;
+  border-radius: 10px;
+}
+
+.flight >.airlines:hover{
+  cursor: pointer;
+  color: crimson;
 }
 
 #add{
   display: flex;
   justify-content: center;
   height: 40px;
+  border-bottom: 1.5px solid black;
 }
 
 #add > button{
@@ -122,23 +145,46 @@
   font-size: 14pt;
 }
 
-.airlines > input{
+.edit-airlines {
+  width: 200px;
+  box-sizing: border-box;
+}
+
+.edit-flightnumber {
+  width: 105px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.edit-origin {
+  width: 110px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.edit-destination {
+  width: 70px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.edit-airlines > input{
   width: 100px;
   box-sizing: border-box;
 }
 
-.flightnumber > input{
+.edit-flightnumber > input{
   width: 80px;
   box-sizing: border-box;
 }
 
-.origin > input{
+.edit-origin > input{
   width: 100px;
   box-sizing: border-box;
   margin-left: 25px;
 }
 
-.destination > input{
+.edit-destination > input{
   margin-left: 35px;
   width: 50px;
   box-sizing: border-box;

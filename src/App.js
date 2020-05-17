@@ -14,7 +14,7 @@ const arrival = route.arrival;
 const searchArrival = new Arrival("PVG");
 const searchCurrentArrival = searchArrival.arrival;
 
-const oneFlight = new OneFlight("China Eastern", "MU588", "JFK", "PVG");
+const oneFlight = new OneFlight("", "", "", "");
 const newAirlines = oneFlight.airlines;
 const newFlightNumber = oneFlight.flightnumber;
 const newDeparture = oneFlight.departure;
