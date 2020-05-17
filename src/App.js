@@ -42,6 +42,10 @@ function App() {
     dispatch(startAddingFlight(newAirlines, newFlightNumber, newDeparture, newArrival));
   }
 
+  const onLoadAll = () =>{
+    dispatch(loadAllLiveFlights());
+  }
+
   return (
     <div id="flights-root">
       <div id="table-name">
@@ -53,9 +57,12 @@ function App() {
         <div className="delete-operation"></div>
       </div>
 
-      <div id="add"><button onClick = {onAdd}>Add a new flight</button></div>
-      
 
+      <div id="add-and-load">
+        <div id="add"><button onClick = {onAdd}>Add a new flight</button></div>
+        <div id="load-all"><button onClick = {onLoadAll}>Load all live flights</button></div>
+      </div>
+      
       <div id="flights">
         {flights.map(flight => <Flight key = {flight.id} flight={flight} />)}
       </div>
