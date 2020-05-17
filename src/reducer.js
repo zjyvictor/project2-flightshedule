@@ -15,7 +15,7 @@ function reducer(state = initialState, action){
         case Action.FinishAddingFlight:
             return{
                 ...state,
-                flights: [action.payload, ...state.flights],
+                flights: [{...action.payload, isEditing: true}, ...state.flights],
             };
         case Action.EnterEditMode:
             return{

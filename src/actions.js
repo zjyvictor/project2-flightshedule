@@ -56,6 +56,24 @@ export class Route {
     }
 }
 
+export class FlightNumber {
+    constructor(flightnumber){
+        this.flightnumber = flightnumber;
+    }
+}
+
+export class Arrival {
+    constructor(arrival){
+        this.arrival = arrival;
+    }
+}
+
+export class Departure {
+    constructor(departure){
+        this.departure = departure;
+    }
+}
+
 export class OneFlight {
     constructor(airlines, flightnumber, departure, arrival){
         this.airlines = airlines;
@@ -74,9 +92,66 @@ function checkForErrors(response) {
 
 const host = "https://flightschedule.duckdns.org:8444";
 
+
+export function loadAllLiveFlights(){
+    return dispatch =>{
+        fetch(`${host}/allliveflights`)
+            .then(checkForErrors)
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok){
+                    dispatch(loadFlights(data.flights));
+                }
+            })
+            .catch(e => console.error(e));
+    };
+}
+
 export function loadRoute(origin, destination){
     return dispatch =>{
         fetch(`${host}/flightschedule/${origin}/${destination}`)
+            .then(checkForErrors)
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok){
+                    dispatch(loadFlights(data.flights));
+                }
+            })
+            .catch(e => console.error(e));
+    };
+}
+
+export function loadArrival(destination){
+    return dispatch =>{
+        fetch(`${host}/destination/${destination}`)
+            .then(checkForErrors)
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok){
+                    dispatch(loadFlights(data.flights));
+                }
+            })
+            .catch(e => console.error(e));
+    };
+}
+
+export function loadDeparture(origin){
+    return dispatch =>{
+        fetch(`${host}/origin/${origin}`)
+            .then(checkForErrors)
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok){
+                    dispatch(loadFlights(data.flights));
+                }
+            })
+            .catch(e => console.error(e));
+    };
+}
+
+export function loadFlightNumber(flightNumber){
+    return dispatch =>{
+        fetch(`${host}/flightschedule/${flightNumber}`)
             .then(checkForErrors)
             .then(response => response.json())
             .then(data => {

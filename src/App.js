@@ -3,12 +3,16 @@ import logo from './logo.svg';
 import './App.css';
 import {Flight} from './flight'
 import {useSelector, useDispatch} from 'react-redux';
-import {loadRoute, OneFlight, Route, startAddingFlight} from './actions';
+import {loadRoute, OneFlight, Route, startAddingFlight, 
+  loadFlightNumber, loadDeparture, loadArrival, Arrival, loadAllLiveFlights} from './actions';
 
 
 const route = new Route("NRT", "PVG");
 const departure = route.departure;
 const arrival = route.arrival;
+
+const searchArrival = new Arrival("PVG");
+const searchCurrentArrival = searchArrival.arrival;
 
 const oneFlight = new OneFlight("China Eastern", "MU588", "JFK", "PVG");
 const newAirlines = oneFlight.airlines;
@@ -28,7 +32,9 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect (() =>{
-    dispatch(loadRoute(departure, arrival));
+    // dispatch(loadRoute(departure, arrival));
+    // dispatch(loadArrival(searchCurrentArrival));
+    dispatch(loadAllLiveFlights());
   },[dispatch]);
 
 
@@ -47,7 +53,8 @@ function App() {
         <div className="delete-operation"></div>
       </div>
 
-      <button onClick = {onAdd}>new flight</button>
+      <div id="add"><button onClick = {onAdd}>Add a new flight</button></div>
+      
 
       <div id="flights">
         {flights.map(flight => <Flight key = {flight.id} flight={flight} />)}

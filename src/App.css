@@ -1,4 +1,8 @@
 #flights-root{
+  background-color: gainsboro;
+}
+
+#flights {
   background-color: lightgray;
 }
 
@@ -70,6 +74,21 @@
   width: 70px;
   box-sizing: border-box;
   text-align: center;
+  display: block;
+}
+
+#add{
+  display: flex;
+  justify-content: center;
+  height: 40px;
+}
+
+#add > button{
+  height: 35px;
+  width: 200px;
+  font-size: 16pt;
+  box-sizing: border-box;
+  margin-top: 2px;
 }
 
 .delete-button{
